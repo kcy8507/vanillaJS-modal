@@ -15,31 +15,51 @@ let tabEl = document.querySelectorAll(".tab-content");
 let tabEls = [...tabEl];
 console.log(tabEls);
 // $(".tab-content").addClass("blue");
-
-for (let i = 0; i < list.length; ++i) {
-  list[i].addEventListener("click", function (e) {
-    console.log(e);
-    console.log(e.target);
-    console.log(e.currentTarget);
-
-    list.forEach((el, index) => {
-      console.log(i, index);
-      if (index == i) {
-        el.classList.add("tab-menu--selected");
-      } else {
-        el.classList.remove("tab-menu--selected");
-      }
-    });
-    tabEls.forEach((el, index) => {
-      console.log(i, index);
-      if (index == i) {
-        el.classList.add("tab-content--active");
-      } else {
-        el.classList.remove("tab-content--active");
-      }
-    });
-  });
+let ulEl = document.querySelector("ul");
+for (let i = 0; i < list.length; i++) {
+  // list[i].setAttribute("data-index", i);
+  // list[i].dataset.id = i;
+  list[i].setAttribute("data-id", i);
+  // tabEl[i].dataset.id = i;
 }
+ulEl.addEventListener("click", (e) => {
+  console.log(e);
+  console.log(e.currentTarget);
+  console.log("this", this);
+  // openTab(e.target.dataset.id);
+  openTab(e.target.getAttribute("data-id"));
+});
+
+// console.log(ulEl);
+// list.forEach((el, i) => {
+//   list[i].dataset.index = i;
+//   tabEl[i].dataset.index = i;
+// });
+
+// for (let i = 0; i < list.length; ++i) {
+//   list[i].addEventListener("click", function (e) {
+//     console.log(e);
+//     console.log(e.target);
+//     console.log(e.currentTarget);
+
+//     list.forEach((el, index) => {
+//       console.log(i, index);
+//       if (index == i) {
+//         el.classList.add("tab-menu--selected");
+//       } else {
+//         el.classList.remove("tab-menu--selected");
+//       }
+//     });
+//     tabEls.forEach((el, index) => {
+//       console.log(i, index);
+//       if (index == i) {
+//         el.classList.add("tab-content--active");
+//       } else {
+//         el.classList.remove("tab-content--active");
+//       }
+//     });
+//   });
+// }
 
 // for (let i = 0; i < list.length; ++i) {
 //   list[i].addEventListener("click", (e) => {
@@ -50,13 +70,14 @@ for (let i = 0; i < list.length; ++i) {
 //     openTab(e);
 //   });
 // }
-// function openTab(e) {
+function openTab(index) {
+  list.forEach((el) => el.classList.remove("tab-menu--selected"));
+  tabEls.forEach((el) => el.classList.remove("tab-content--active"));
+  tabEls[index].classList.add("tab-content--active");
+  list[index].classList.add("tab-menu--selected");
+}
+// openTab(2);
 
-//   list.forEach((el) => el.classList.remove("tab-menu--selected"));
-//   tabEls.forEach((el) => el.classList.remove("tab-content--active"));
-//   tabEls[index].classList.add("tab-content--active");
-//   list[index].classList.add("tab-menu--selected");
-// }
 // for (let i = 0; i < list.length; i++) {
 //   list[i].addEventListener("click", function () {
 //     if (i == 0) {
@@ -253,6 +274,14 @@ closeBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-blkgb.addEventListener("click", () => {
-  modal.style.display = "none";
+blkgb.addEventListener("click", (e) => {
+  console.log(e);
+  console.log(e.target); // 실제로 클릭된곳
+  console.log(e.currentTarget); //이벤트리스너가 부착된곳
+
+  // console.log(blkgb);
+  //클릭한게 진짜 검은색이에요?
+  if (e.target == blkgb) {
+    modal.style.display = "none";
+  }
 });
